@@ -16,8 +16,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -30,6 +33,12 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -106,9 +115,19 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnRRefresh = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
-        txtSearch4 = new javax.swing.JTextField();
-        lblTitle3 = new javax.swing.JLabel();
-        btnEnter4 = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        cbREmployee = new javax.swing.JComboBox<>();
+        cbRStartDate = new javax.swing.JComboBox<>();
+        cbREndDate = new javax.swing.JComboBox<>();
+        txtREmployee = new javax.swing.JLabel();
+        txtRStartDate = new javax.swing.JLabel();
+        txtREndDate = new javax.swing.JLabel();
+        btnSubmit = new javax.swing.JButton();
+        btnPrint = new javax.swing.JButton();
+        jPanel13 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblReport = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -697,42 +716,145 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
 
         jPanel19.setBackground(new java.awt.Color(255, 245, 239));
 
-        txtSearch4.setToolTipText("");
-        txtSearch4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
+        jPanel12.setBackground(new java.awt.Color(255, 245, 239));
 
-        lblTitle3.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
-        lblTitle3.setText("Enter EmployeeID");
+        cbREmployee.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "All employees" }));
 
-        btnEnter4.setBackground(new java.awt.Color(254, 142, 76));
-        btnEnter4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEnter4.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnter4.setText("Search");
-        btnEnter4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
+        cbRStartDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "2022-09-01", "2022-10-01", "2022-11-01", "2022-12-01" }));
+
+        cbREndDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "2022-09-30", "2022-10-31", "2022-11-30", "2022-12-31" }));
+
+        txtREmployee.setText("Employee(s):");
+
+        txtRStartDate.setText("Start Date:");
+
+        txtREndDate.setText("End Date:");
+
+        btnSubmit.setBackground(new java.awt.Color(254, 142, 76));
+        btnSubmit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
+        btnSubmit.setText("Submit");
+        btnSubmit.setBorder(null);
+        btnSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSubmitgenerateMonthlyReport(evt);
+            }
+        });
+
+        btnPrint.setBackground(new java.awt.Color(254, 142, 76));
+        btnPrint.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrint.setText("PRINT");
+        btnPrint.setBorder(null);
+        btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPrintprintMonthlyReport(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtREmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbREmployee, 0, 130, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtRStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbRStartDate, 0, 100, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtREndDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbREndDate, 0, 100, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtREmployee)
+                    .addComponent(txtRStartDate)
+                    .addComponent(txtREndDate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbREmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbRStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbREndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel13.setBackground(new java.awt.Color(255, 245, 239));
+
+        jScrollPane3.setBackground(new java.awt.Color(255, 245, 239));
+
+        tblReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(tblReport);
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(68, 68, 68))
+        );
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setText("Monthly Summary Report");
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap(534, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitle3)
-                    .addGroup(jPanel19Layout.createSequentialGroup()
-                        .addComponent(txtSearch4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEnter4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEnter4))
-                .addGap(0, 0, 0)
-                .addComponent(lblTitle3)
-                .addContainerGap(472, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -749,7 +871,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(9, 9, 9))
+                .addContainerGap())
         );
 
         JTabbedPane.addTab("Report", jPanel16);
@@ -1110,6 +1232,113 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         
     }//GEN-LAST:event_loadAttendance
 
+    private void btnSubmitgenerateMonthlyReport(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitgenerateMonthlyReport
+        String selectedEmployee = (String) cbREmployee.getSelectedItem();
+        String start = String.valueOf(cbRStartDate.getSelectedItem());
+        String end = String.valueOf(cbREndDate.getSelectedItem());
+
+        int employeeID = selectedEmployee.equals("All employees") ? -1 : Integer.parseInt(selectedEmployee.split(" ")[0]);
+        java.sql.Date startDate = java.sql.Date.valueOf(start);
+        java.sql.Date endDate = java.sql.Date.valueOf(end);
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
+            String sql;
+
+            if (employeeID == -1) {
+                sql = "SELECT `Employee No`, `Employee Full Name`, `Position`, `Department`, `Gross Income`, `Net Pay` " +
+                "FROM monthly_payroll_summary " +
+                "WHERE `Period Start Date` >= ? AND `Period End Date` <= ? " +
+                "ORDER BY `Employee No`";
+            } else {
+                sql = "SELECT `Employee No`, `Employee Full Name`, `Position`, `Department`, `Gross Income`, `Net Pay` " +
+                "FROM monthly_payroll_summary " +
+                "WHERE `Employee No` = ? AND `Period Start Date` >= ? AND `Period End Date` <= ? " +
+                "ORDER BY `Employee No`";
+            }
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                if (employeeID != -1) {DefaultTableModel reportModel = new DefaultTableModel();
+                    statement.setInt(1, employeeID);
+                    statement.setDate(2, startDate);
+                    statement.setDate(3, endDate);
+                } else {
+                    statement.setDate(1, startDate);
+                    statement.setDate(2, endDate);
+                }
+
+                ResultSet resultSet = statement.executeQuery();
+                DefaultTableModel reportModel = new DefaultTableModel();
+
+                String[] columns = {"ID", "Employee Full Name", "Position",
+                    "Department", "Gross Income", "Net Pay"};
+
+                reportModel.setColumnIdentifiers(columns);
+                boolean dataAvailable = false;
+
+                while (resultSet.next()) {
+                    dataAvailable = true;
+                    Object[] row = new Object[columns.length];
+                    row[0] = resultSet.getInt("Employee No");
+                    row[1] = resultSet.getString("Employee Full Name");
+                    row[2] = resultSet.getString("Position");
+                    row[3] = resultSet.getString("Department");
+                    row[4] = resultSet.getDouble("Gross Income");
+                    row[5] = resultSet.getDouble("Net Pay");
+
+                    reportModel.addRow(row);
+                }
+
+                if (dataAvailable) {
+                    tblReport.setModel(reportModel);
+                    adjustColumns(tblReport);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Payslip for the selected month is not available.", "No Data", JOptionPane.INFORMATION_MESSAGE);
+
+                    reportModel.setRowCount(0);
+                    tblReport.setModel(reportModel);
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while fetching report data: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSubmitgenerateMonthlyReport
+
+    private void btnPrintprintMonthlyReport(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintprintMonthlyReport
+        if (cbRStartDate.getSelectedItem() == null || cbREndDate.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Please select start and end dates first.", "Missing Dates", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
+                String reportpath = "C:\\Users\\Anna\\Downloads\\Reports\\Monthly_Payroll_Summary.jrxml";
+                JasperReport jasperReport = JasperCompileManager.compileReport(reportpath);
+
+                Map<String, Object> parameters = new HashMap<>();
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date startDate = dateFormat.parse(String.valueOf(cbRStartDate.getSelectedItem()));
+                Date endDate = dateFormat.parse(String.valueOf(cbREndDate.getSelectedItem()));
+
+                java.sql.Date sqlStartDate = new java.sql.Date(startDate.getTime());
+                java.sql.Date sqlEndDate = new java.sql.Date(endDate.getTime());
+                parameters.put("cbStartDate1", sqlStartDate);
+                parameters.put("cbEndDate2", sqlEndDate);
+
+                // Debugging
+                System.out.println("startDate parameter: " + sqlStartDate);
+                System.out.println("endDate parameter: " + sqlEndDate);
+
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
+                JasperViewer.viewReport(jasperPrint, false);
+            }
+
+        } catch(ClassNotFoundException | NumberFormatException | SQLException | JRException | ParseException e) {
+            JOptionPane.showMessageDialog(this, "Error generating payslip report: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnPrintprintMonthlyReport
+
     // Display current time and date
     public void setTime() {
         Thread updateTimeThread = new Thread(() -> {
@@ -1128,8 +1357,26 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         updateTimeThread.start();
     }
     
-    public void setUser(String name) {
-        lblUser.setText(name + ",");
+    public void setUser(String enteredUsername) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
+            String sql = "SELECT username, firstName "
+                    + "FROM employee_details "
+                    + "WHERE username = ?";
+            
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, enteredUsername);
+                ResultSet resultSet = statement.executeQuery();
+                
+                if (resultSet.next()) {
+                    String firstName = resultSet.getString("firstName");
+                    lblUser.setText(firstName + ",");
+                } else {
+                    lblUser.setText("Unknown User,");
+                }
+            }
+        } catch (SQLException ex) {
+            
+        }
     }
     
     private void refreshEmployeeTable() {
@@ -1298,17 +1545,24 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JButton btnEnter;
     private javax.swing.JButton btnEnter2;
     private javax.swing.JButton btnEnter3;
-    private javax.swing.JButton btnEnter4;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnRRefresh;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReject;
+    private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnUpdateEmployee;
+    private javax.swing.JComboBox<String> cbREmployee;
+    private javax.swing.JComboBox<String> cbREndDate;
+    private javax.swing.JComboBox<String> cbRStartDate;
     private javax.swing.JComboBox<String> cbSelectDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
@@ -1319,6 +1573,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
@@ -1326,7 +1581,6 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JLabel lblTitle3;
     private javax.swing.JLabel lblTitle4;
     private javax.swing.JLabel lblTitle5;
     private javax.swing.JLabel lblTitle6;
@@ -1335,9 +1589,12 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JTable tblCredit;
     private javax.swing.JTable tblEmployee;
     private javax.swing.JTable tblLeave;
+    private javax.swing.JTable tblReport;
+    private javax.swing.JLabel txtREmployee;
+    private javax.swing.JLabel txtREndDate;
+    private javax.swing.JLabel txtRStartDate;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSearch2;
     private javax.swing.JTextField txtSearch3;
-    private javax.swing.JTextField txtSearch4;
     // End of variables declaration//GEN-END:variables
 }

@@ -199,6 +199,7 @@ public class FrmLogin extends javax.swing.JFrame {
         try {
             // Check if the user is authenticated
             User loggedInUser = User.loadFromDatabase(enteredUsername, enteredPassword);
+            
             if (loggedInUser != null && loggedInUser.authenticate(enteredUsername, enteredPassword)) {
                 JOptionPane.showMessageDialog(this, "Login Successful!");
                 setVisible(false);
