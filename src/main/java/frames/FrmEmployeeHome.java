@@ -156,11 +156,13 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         dcEndDate = new com.toedter.calendar.JDateChooser();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblLeave = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         txtReason = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblLeave = new javax.swing.JTable();
         pnlSalary = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jLabel49 = new javax.swing.JLabel();
@@ -204,7 +206,6 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         txtDaysWorked = new javax.swing.JTextField();
         txtOvertime = new javax.swing.JTextField();
         txtGrossIncome = new javax.swing.JTextField();
-        pnlReport = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -241,14 +242,14 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         btnTimeIn.setText("Time In");
         btnTimeIn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ClockIn(evt);
+                eClockIn(evt);
             }
         });
 
         jButton1.setText("Time Out");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ClockOut(evt);
+                eClockOut(evt);
             }
         });
 
@@ -541,7 +542,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         btnEdit.setText("Edit");
         btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editProfile(evt);
+                eEditProfile(evt);
             }
         });
 
@@ -739,7 +740,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel20)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel22Layout.setVerticalGroup(
             jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -893,7 +894,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(lblStartMonthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dcEndDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dcRequested, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                    .addComponent(dcRequested, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dcStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(40, 40, 40))
         );
@@ -916,6 +917,11 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         );
 
         jButton3.setText("Cancel");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rCancel(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(254, 142, 76));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -923,9 +929,38 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         jButton4.setText("Submit");
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SubmitRequest(evt);
+                rSubmitRequest(evt);
             }
         });
+
+        jPanel2.setBackground(new java.awt.Color(255, 245, 239));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reason", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
+
+        txtReason.setColumns(20);
+        txtReason.setRows(5);
+        jScrollPane4.setViewportView(txtReason);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
+        jLabel3.setText("Please fill out all fields before submitting your leave request.");
+
+        jPanel8.setBackground(new java.awt.Color(255, 245, 239));
 
         tblLeave.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -954,28 +989,21 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
             tblLeave.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jPanel2.setBackground(new java.awt.Color(255, 245, 239));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reason", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
-
-        txtReason.setColumns(20);
-        txtReason.setRows(5);
-        jScrollPane4.setViewportView(txtReason);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
@@ -988,16 +1016,22 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblStartMonth, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel26Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel36)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel26Layout.createSequentialGroup()
+                        .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel26Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addGap(88, 88, 88)))
                         .addComponent(jButton3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1007,7 +1041,9 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
                     .addComponent(jLabel36)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(7, 7, 7)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel26Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1015,8 +1051,8 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
                         .addComponent(lblStartMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlLeaveLayout = new javax.swing.GroupLayout(pnlLeave);
@@ -1056,7 +1092,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         btnPrint.setText("PRINT");
         btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                printPayslip(evt);
+                sPrintPayslip(evt);
             }
         });
         jPanel31.add(btnPrint, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 140, 29));
@@ -1065,7 +1101,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         txtPayslip.setRows(5);
         jScrollPane5.setViewportView(txtPayslip);
 
-        jPanel31.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 390));
+        jPanel31.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 390));
 
         jPanel16.add(jPanel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 66, -1, -1));
 
@@ -1081,7 +1117,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         btnPayslip.setText("Generate");
         btnPayslip.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                generatePayslip(evt);
+                sGeneratePayslip(evt);
             }
         });
         jPanel16.add(btnPayslip, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 95, -1));
@@ -1092,10 +1128,10 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         btnClear.setText("Clear");
         btnClear.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clearPayslip(evt);
+                sClearPayslip(evt);
             }
         });
-        jPanel16.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 90, -1));
+        jPanel16.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 90, -1));
 
         btnShow.setBackground(new java.awt.Color(254, 142, 76));
         btnShow.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -1103,10 +1139,10 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         btnShow.setText("Show Payslip");
         btnShow.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                showPayslip(evt);
+                sShowPayslip(evt);
             }
         });
-        jPanel16.add(btnShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, -1, -1));
+        jPanel16.add(btnShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));
 
         jPanel33.setBackground(new java.awt.Color(255, 245, 239));
         jPanel33.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "BENEFITS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 2, 12))); // NOI18N
@@ -1274,21 +1310,6 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Salary", pnlSalary);
 
-        pnlReport.setBackground(new java.awt.Color(255, 204, 179));
-
-        javax.swing.GroupLayout pnlReportLayout = new javax.swing.GroupLayout(pnlReport);
-        pnlReport.setLayout(pnlReportLayout);
-        pnlReportLayout.setHorizontalGroup(
-            pnlReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 851, Short.MAX_VALUE)
-        );
-        pnlReportLayout.setVerticalGroup(
-            pnlReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Report", pnlReport);
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -1328,7 +1349,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loadDetails(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadDetails
-        // setEmployee(employee, payslip);
+        // setEmployee(employee);
         setEmployee(employee);
     }//GEN-LAST:event_loadDetails
 
@@ -1340,7 +1361,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         loginFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_Logout
 
-    private void SubmitRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubmitRequest
+    private void rSubmitRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rSubmitRequest
         // Check if all required fields are filled
         if (txtEmployeeID.getText().isEmpty() || 
             txtLastName.getText().isEmpty() || 
@@ -1419,13 +1440,12 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         }
         
         refreshLeaveTable();
-    }//GEN-LAST:event_SubmitRequest
+    }//GEN-LAST:event_rSubmitRequest
 
     private void loadLeave(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadLeave
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron");
-            String sql = "SELECT `Date Requested`, `Leave Type`, `Start Date`, `End Date`, `Status` "
-                        + "FROM leave_record "
+            String sql = "SELECT * FROM leave_record "
                         + "WHERE `Employee ID` = ?";
         
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -1487,7 +1507,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         }   
     }//GEN-LAST:event_loadBalances
 
-    private void ClockIn(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClockIn
+    private void eClockIn(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eClockIn
         int employeeID = employee.getEmployeeID();
         
         if (time.isClockedIn(employeeID)) {
@@ -1501,9 +1521,9 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(this, "Clocked in successfully.");
         }
-    }//GEN-LAST:event_ClockIn
+    }//GEN-LAST:event_eClockIn
 
-    private void ClockOut(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClockOut
+    private void eClockOut(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eClockOut
         int employeeID = employee.getEmployeeID();
         
         try {
@@ -1513,7 +1533,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
             Logger.getLogger(FrmEmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(this, "Clocked out successfully.");
-    }//GEN-LAST:event_ClockOut
+    }//GEN-LAST:event_eClockOut
 
     private void loadAttendance(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadAttendance
         int employeeID = employee.getEmployeeID();
@@ -1535,11 +1555,11 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loadAttendance
 
-    private void editProfile(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editProfile
+    private void eEditProfile(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eEditProfile
         // TODO add your handling code here:
-    }//GEN-LAST:event_editProfile
+    }//GEN-LAST:event_eEditProfile
 
-    private void printPayslip(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printPayslip
+    private void sPrintPayslip(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sPrintPayslip
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
@@ -1573,9 +1593,9 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         } catch(ClassNotFoundException | NumberFormatException | SQLException | JRException | ParseException e) {
             JOptionPane.showMessageDialog(this, "Error generating payslip report: " + e.getMessage());
         }
-    }//GEN-LAST:event_printPayslip
+    }//GEN-LAST:event_sPrintPayslip
 
-    private void generatePayslip(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_generatePayslip
+    private void sGeneratePayslip(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sGeneratePayslip
         try {
             String selectedStartDate = String.valueOf(cbStartDate.getSelectedItem());
             String selectedEndDate = String.valueOf(cbEndDate.getSelectedItem());
@@ -1591,23 +1611,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
             int employeeID = employee.getEmployeeID(); 
             
             try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
-                String sql = "SELECT " +
-                             "`Employee ID`, " +
-                             "`Monthly Rate`, " +
-                             "`Daily Rate`, " +
-                             "`Days Worked`, " +
-                             "`Overtime`, " +
-                             "`Gross Income`, " +
-                             "`Rice Subsidy`, " +
-                             "`Phone Allowance`, " +
-                             "`Clothing Allowance`, " +
-                             "`Total Benefits`, " +
-                             "`Social Security System`, " +
-                             "`PhilHealth`, " +
-                             "`Pag-IBIG`, " +
-                             "`Withholding Tax`, " +
-                             "`Total Deductions` " +
-                             "FROM employee_payslip " +
+                String sql = "SELECT * FROM employee_payslip " +
                              "WHERE `Employee ID` = ? AND `Period Start Date` = ? AND `Period End Date` = ?";
                 
                 try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -1641,9 +1645,9 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(this, "Error in date conversion: " + ex.getMessage(), "Date Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_generatePayslip
+    }//GEN-LAST:event_sGeneratePayslip
 
-    private void clearPayslip(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clearPayslip
+    private void sClearPayslip(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sClearPayslip
         txtMonthlyRate.setText("");
         txtDailyRate.setText("");
         txtDaysWorked.setText("");
@@ -1658,9 +1662,9 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         txtDPagibig.setText("");
         txtDTax.setText("");
         txtDTotal.setText("");
-    }//GEN-LAST:event_clearPayslip
+    }//GEN-LAST:event_sClearPayslip
 
-    private void showPayslip(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showPayslip
+    private void sShowPayslip(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sShowPayslip
         try {
             String selectedStartDate = String.valueOf(cbStartDate.getSelectedItem());
             String selectedEndDate = String.valueOf(cbEndDate.getSelectedItem());
@@ -1705,7 +1709,11 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Invalid employee ID.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_showPayslip
+    }//GEN-LAST:event_sShowPayslip
+
+    private void rCancel(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rCancel
+        //
+    }//GEN-LAST:event_rCancel
 
     // Display current time and date
     public void setTime() {
@@ -1877,18 +1885,6 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         }
     }
     
-    private void updateLeaveBalance(Connection connection, int employeeID, String leaveTypeColumn, int newBalance) {
-        String updateSql = "UPDATE leave_balances SET " + leaveTypeColumn + " = ? WHERE employeeID = ?";
-        
-        try (PreparedStatement updateStatement = connection.prepareStatement(updateSql)) {
-            updateStatement.setInt(1, newBalance);
-            updateStatement.setInt(2, employeeID);
-            updateStatement.executeUpdate();
-        } catch (SQLException ex) {
-            
-        }
-    }
-    
     
     
     /**
@@ -1950,6 +1946,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
@@ -1973,6 +1970,7 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -2022,7 +2020,6 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
     private javax.swing.JLabel lblVacationLeave;
     private javax.swing.JPanel pnlLeave;
     private javax.swing.JPanel pnlProfile;
-    private javax.swing.JPanel pnlReport;
     private javax.swing.JPanel pnlSalary;
     private javax.swing.JTable tblAttendance;
     private javax.swing.JTable tblLeave;

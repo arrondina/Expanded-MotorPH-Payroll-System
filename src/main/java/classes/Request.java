@@ -10,10 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -227,15 +223,25 @@ public class Request {
         }
     }
     
-    public void rejectLeave() {
-        
+    public void rejectLeave(int requestID) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
+            String sql = "UPDATE request SET statusID = ? WHERE requestID = ?";
+            
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, 3); 
+                statement.setInt(2, requestID);
+                
+                int rowsUpdated = statement.executeUpdate();
+                
+                if (rowsUpdated > 0) {
+                    System.out.println("Request with ID " + requestID + " has been rejecteded.");
+                } else {
+                    System.out.println("No request found with ID " + requestID);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error updating request status: " + ex.getMessage());
+        }
     }
     
-    public void calculateLeaveBalance() {
-        
-    }
-    
-    public void generateLeaveReport() {
-        
-    }
 }

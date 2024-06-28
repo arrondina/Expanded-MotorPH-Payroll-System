@@ -5,8 +5,6 @@
 package frames;
 
 import classes.Employee;
-import classes.Request;
-import classes.EmployeeRecord;
 import classes.Payslip;
 import classes.TimeAttendance;
 import java.awt.Component;
@@ -14,7 +12,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -102,17 +99,18 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnADelete = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
-        txtSearch3 = new javax.swing.JTextField();
-        lblTitle5 = new javax.swing.JLabel();
-        btnEnter3 = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         tblCredit = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         btnApprove = new javax.swing.JButton();
         btnReject = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tblLeave = new javax.swing.JTable();
         btnRRefresh = new javax.swing.JButton();
+        txtRSearch = new javax.swing.JTextField();
+        lblTitle2 = new javax.swing.JLabel();
+        btnRSearch = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -267,7 +265,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnEnter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
         btnEnter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enterSearch(evt);
+                eEnterSearch(evt);
             }
         });
 
@@ -277,7 +275,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnRefresh.setText("REFRESH");
         btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                refreshRecord(evt);
+                eRefreshRecord(evt);
             }
         });
 
@@ -287,7 +285,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnDeleteEmployee.setText("DELETE");
         btnDeleteEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteRecord(evt);
+                eDeleteRecord(evt);
             }
         });
 
@@ -297,7 +295,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnUpdateEmployee.setText("UPDATE");
         btnUpdateEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateRecord(evt);
+                eUpdateRecord(evt);
             }
         });
 
@@ -307,7 +305,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnAddStudent.setText("ADD");
         btnAddStudent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addRecord(evt);
+                eAddRecord(evt);
             }
         });
 
@@ -356,7 +354,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
                     .addComponent(btnDeleteEmployee)
                     .addComponent(btnUpdateEmployee)
                     .addComponent(btnAddStudent))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -423,6 +421,11 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnEnter2.setForeground(new java.awt.Color(255, 255, 255));
         btnEnter2.setText("Search");
         btnEnter2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
+        btnEnter2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aEnterSearch(evt);
+            }
+        });
 
         cbSelectDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "September", "October", "November", "December" }));
 
@@ -434,18 +437,33 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnARefresh.setForeground(new java.awt.Color(255, 255, 255));
         btnARefresh.setText("Refresh");
         btnARefresh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
+        btnARefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aRefreshAttendance(evt);
+            }
+        });
 
         btnAUpdate.setBackground(new java.awt.Color(254, 142, 76));
         btnAUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnAUpdate.setText("Update");
         btnAUpdate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
+        btnAUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aUpdateAttendance(evt);
+            }
+        });
 
         btnADelete.setBackground(new java.awt.Color(254, 142, 76));
         btnADelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnADelete.setForeground(new java.awt.Color(255, 255, 255));
         btnADelete.setText("Delete");
         btnADelete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
+        btnADelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aDeleteAttendance(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
         jPanel22.setLayout(jPanel22Layout);
@@ -493,7 +511,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
                     .addComponent(lblTitle4)
                     .addComponent(lblTitle6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -520,50 +538,21 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
 
         jPanel23.setBackground(new java.awt.Color(255, 245, 239));
 
-        txtSearch3.setToolTipText("");
-        txtSearch3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
-
-        lblTitle5.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
-        lblTitle5.setText("Enter EmployeeID");
-
-        btnEnter3.setBackground(new java.awt.Color(254, 142, 76));
-        btnEnter3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEnter3.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnter3.setText("Search");
-        btnEnter3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
-        btnEnter3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                enterSearch3(evt);
-            }
-        });
-
         tblCredit.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "", "", "", "", ""
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jScrollPane7.setViewportView(tblCredit);
-        if (tblCredit.getColumnModel().getColumnCount() > 0) {
-            tblCredit.getColumnModel().getColumn(0).setResizable(false);
-            tblCredit.getColumnModel().getColumn(1).setResizable(false);
-            tblCredit.getColumnModel().getColumn(2).setResizable(false);
-            tblCredit.getColumnModel().getColumn(3).setResizable(false);
-            tblCredit.getColumnModel().getColumn(4).setResizable(false);
-        }
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setText("Leave Balance");
 
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
@@ -571,28 +560,19 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel23Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitle5)
-                            .addGroup(jPanel23Layout.createSequentialGroup()
-                                .addComponent(txtSearch3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEnter3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE))
+                .addComponent(jScrollPane7)
                 .addContainerGap())
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEnter3))
-                .addGap(7, 7, 7)
-                .addComponent(lblTitle5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -605,7 +585,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnApprove.setText("Approve");
         btnApprove.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                approveRequest(evt);
+                rApproveRequest(evt);
             }
         });
 
@@ -615,7 +595,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnReject.setText("Reject");
         btnReject.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rejectRequest(evt);
+                rRejectRequest(evt);
             }
         });
 
@@ -655,7 +635,23 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnRRefresh.setText("Refresh");
         btnRRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                refreshRequest(evt);
+                rRefreshRequest(evt);
+            }
+        });
+
+        txtRSearch.setToolTipText("");
+        txtRSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
+
+        lblTitle2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
+        lblTitle2.setText("Enter request status:");
+
+        btnRSearch.setBackground(new java.awt.Color(254, 142, 76));
+        btnRSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnRSearch.setText("Search");
+        btnRSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rEnterSearch(evt);
             }
         });
 
@@ -667,26 +663,38 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
                 .addGap(31, 31, 31)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTitle2)
+                    .addComponent(btnRSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(btnRRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lblTitle2)
+                        .addGap(0, 0, 0)
+                        .addComponent(txtRSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRSearch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -695,9 +703,9 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -737,7 +745,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnSubmit.setBorder(null);
         btnSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSubmitgenerateMonthlyReport(evt);
+                monthlyReportGenerate(evt);
             }
         });
 
@@ -748,7 +756,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnPrint.setBorder(null);
         btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPrintprintMonthlyReport(evt);
+                monthlyReportPrint(evt);
             }
         });
 
@@ -854,7 +862,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -924,7 +932,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         loginFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_Logout
 
-    private void enterSearch(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enterSearch
+    private void eEnterSearch(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eEnterSearch
         String searchQuery = txtSearch.getText().trim();
         
         DefaultTableModel model = (DefaultTableModel) tblEmployee.getModel();
@@ -975,42 +983,14 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "An error occurred while searching for employee data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_enterSearch
+    }//GEN-LAST:event_eEnterSearch
 
-    private void refreshRecord(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshRecord
-        String sql = "SELECT employeeID, lastName, firstName, birthday, address FROM employee";
-        
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron");
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
-            
-            DefaultTableModel model = new DefaultTableModel();
-            
-            String[] columns = {"Employee ID", "Last Name", "First Name", "Birthday", "Address"};
-            model.setColumnIdentifiers(columns);
-            
-            while (resultSet.next()) {
-                Object[] row = new Object[columns.length];
-                row[0] = resultSet.getInt("employeeID");
-                row[1] = resultSet.getString("lastName");
-                row[2] = resultSet.getString("firstName");
-                row[3] = resultSet.getDate("birthday");
-                row[4] = resultSet.getString("address");
-            
-                model.addRow(row);
-            }
-            
-            tblEmployee.setModel(model);
-            txtSearch.setText("");
-            adjustColumns(tblEmployee);
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "An error occurred while fetching employee data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_refreshRecord
+    private void eRefreshRecord(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eRefreshRecord
+        refreshEmployeeTable();
+        txtSearch.setText("");
+    }//GEN-LAST:event_eRefreshRecord
 
-    private void deleteRecord(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteRecord
+    private void eDeleteRecord(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eDeleteRecord
         if (tblEmployee.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Please choose an employee from the table first.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -1032,9 +1012,9 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         if (!delete.isVisible()) {
             refreshEmployeeTable();
         }
-    }//GEN-LAST:event_deleteRecord
+    }//GEN-LAST:event_eDeleteRecord
 
-    private void updateRecord(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateRecord
+    private void eUpdateRecord(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eUpdateRecord
         if (tblEmployee.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Please choose an employee from the table first.", "Error", JOptionPane.ERROR_MESSAGE);
             return; 
@@ -1082,9 +1062,9 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         if (!update.isVisible()) {
             refreshEmployeeTable();
         }
-    }//GEN-LAST:event_updateRecord
+    }//GEN-LAST:event_eUpdateRecord
 
-    private void addRecord(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addRecord
+    private void eAddRecord(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eAddRecord
         FrmAddEmployee add = new FrmAddEmployee();
         add.pack();
         add.setLocationRelativeTo(null);
@@ -1096,42 +1076,10 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
                 refreshEmployeeTable();
             }
         });
-    }//GEN-LAST:event_addRecord
+    }//GEN-LAST:event_eAddRecord
 
     private void loadLeave(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadLeave
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
-            String sql = "SELECT `Request ID`, `Date Requested`, `Full Name`, `Leave Type`, `Days`, `Start Date`, `End Date`, `Status` "
-                       + "FROM leave_record";
-            
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                ResultSet resultSet = statement.executeQuery();
-                
-                DefaultTableModel leaveModel = new DefaultTableModel();
-                String[] columns = {"Request ID", "Date Requested", "Full Name", "Leave Type", "Days", "Start Date", "End Date", "Status"};
-                leaveModel.setColumnIdentifiers(columns);
-                
-                while (resultSet.next()) {
-                    Object[] row = new Object[columns.length];
-                    row[0] = resultSet.getInt("Request ID");
-                    row[1] = resultSet.getDate("Date Requested");
-                    row[2] = resultSet.getString("Full Name");
-                    row[3] = resultSet.getString("Leave Type");
-                    row[4] = resultSet.getInt("Days");
-                    row[5] = resultSet.getDate("Start Date");
-                    row[6] = resultSet.getDate("End Date");
-                    row[7] = resultSet.getString("Status");
-                    
-                    leaveModel.addRow(row);
-                }
-                
-                tblLeave.setModel(leaveModel);
-                adjustColumns(tblLeave);
-                
-            } 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "An error occurred while fetching leave records.", "Error", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        refreshLeaveTable();
     }//GEN-LAST:event_loadLeave
 
     private void loadCredits(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadCredits
@@ -1167,7 +1115,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loadCredits
 
-    private void approveRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_approveRequest
+    private void rApproveRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rApproveRequest
         if (tblLeave.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Please choose a request from the table first.", "Error", JOptionPane.ERROR_MESSAGE);
             return; 
@@ -1214,25 +1162,66 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         if (!approve.isVisible()) {
             refreshLeaveTable();
         }
-    }//GEN-LAST:event_approveRequest
+    }//GEN-LAST:event_rApproveRequest
 
-    private void rejectRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rejectRequest
+    private void rRejectRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rRejectRequest
+        if (tblLeave.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Please choose a request from the table first.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
         
-    }//GEN-LAST:event_rejectRequest
+        int selectedRow = tblLeave.getSelectedRow();
+        
+        String rqstID = tblLeave.getModel().getValueAt(selectedRow, 0).toString();
+        int requestID = Integer.parseInt(rqstID);
+        
+        String dateRequested = tblLeave.getModel().getValueAt(selectedRow, 1).toString();
+        String fullName = tblLeave.getModel().getValueAt(selectedRow, 2).toString();
+        String leaveType = tblLeave.getModel().getValueAt(selectedRow, 3).toString();
+        String days = tblLeave.getModel().getValueAt(selectedRow, 4).toString();
+        String startDate = tblLeave.getModel().getValueAt(selectedRow, 5).toString();
+        String endDate = tblLeave.getModel().getValueAt(selectedRow, 6).toString();
+        String status = tblLeave.getModel().getValueAt(selectedRow, 7).toString();
+        
+        String reason = "";
+        
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
+            String sql = "SELECT reason "
+                       + "FROM request "
+                       + "WHERE requestID = ?";
+            
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, requestID);
+                ResultSet resultSet = statement.executeQuery();
+                
+                if (resultSet.next()) {
+                    reason = resultSet.getString("reason");
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error fetching employee details: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        FrmReject reject = new FrmReject(requestID, dateRequested, fullName, leaveType, days, startDate, endDate, status, reason);
+        reject.pack();
+        reject.setLocationRelativeTo(null);
+        reject.setVisible(true);
+        
+        if (!reject.isVisible()) {
+            refreshLeaveTable();
+        }
+    }//GEN-LAST:event_rRejectRequest
 
-    private void enterSearch3(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_enterSearch3
-        
-    }//GEN-LAST:event_enterSearch3
-
-    private void refreshRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refreshRequest
-        
-    }//GEN-LAST:event_refreshRequest
+    private void rRefreshRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rRefreshRequest
+        refreshLeaveTable();
+    }//GEN-LAST:event_rRefreshRequest
 
     private void loadAttendance(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadAttendance
-        
+        refreshAttendanceTable();
     }//GEN-LAST:event_loadAttendance
 
-    private void btnSubmitgenerateMonthlyReport(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitgenerateMonthlyReport
+    private void monthlyReportGenerate(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_monthlyReportGenerate
         String selectedEmployee = (String) cbREmployee.getSelectedItem();
         String start = String.valueOf(cbRStartDate.getSelectedItem());
         String end = String.valueOf(cbREndDate.getSelectedItem());
@@ -1301,9 +1290,9 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "An error occurred while fetching report data: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnSubmitgenerateMonthlyReport
+    }//GEN-LAST:event_monthlyReportGenerate
 
-    private void btnPrintprintMonthlyReport(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintprintMonthlyReport
+    private void monthlyReportPrint(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_monthlyReportPrint
         if (cbRStartDate.getSelectedItem() == null || cbREndDate.getSelectedItem() == null) {
             JOptionPane.showMessageDialog(this, "Please select start and end dates first.", "Missing Dates", JOptionPane.WARNING_MESSAGE);
             return;
@@ -1337,7 +1326,78 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         } catch(ClassNotFoundException | NumberFormatException | SQLException | JRException | ParseException e) {
             JOptionPane.showMessageDialog(this, "Error generating payslip report: " + e.getMessage());
         }
-    }//GEN-LAST:event_btnPrintprintMonthlyReport
+    }//GEN-LAST:event_monthlyReportPrint
+
+    private void aEnterSearch(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aEnterSearch
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aEnterSearch
+
+    private void aRefreshAttendance(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aRefreshAttendance
+        refreshAttendanceTable();
+    }//GEN-LAST:event_aRefreshAttendance
+
+    private void aUpdateAttendance(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aUpdateAttendance
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aUpdateAttendance
+
+    private void aDeleteAttendance(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aDeleteAttendance
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aDeleteAttendance
+
+    private void rEnterSearch(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rEnterSearch
+        String searchQuery = txtRSearch.getText().trim();
+        
+        DefaultTableModel model = (DefaultTableModel) tblLeave.getModel();
+        model.setRowCount(0); 
+        
+        if (searchQuery.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a search term.", "Search Input Required", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        String sql = "SELECT * FROM leave_record " +
+                     "WHERE Status = ?";
+        
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron");
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            
+            try {String status = searchQuery.trim();
+                statement.setString(1, status);
+                
+                ResultSet resultSet = statement.executeQuery();
+                
+                boolean recordFound = false;
+                while (resultSet.next()) {
+                    Object[] row = new Object[8];
+                    row[0] = resultSet.getInt("Request ID");
+                    row[1] = resultSet.getDate("Date Requested");
+                    row[2] = resultSet.getString("Full Name");
+                    row[3] = resultSet.getString("Leave Type");
+                    row[4] = resultSet.getInt("Days");
+                    row[5] = resultSet.getDate("Start Date");
+                    row[6] = resultSet.getDate("End Date");
+                    row[7] = resultSet.getString("Status");
+                
+                    model.addRow(row);
+                    recordFound = true;
+                }
+                
+                if (!recordFound) {
+                    JOptionPane.showMessageDialog(this, "No matching record found", "Search Result", JOptionPane.INFORMATION_MESSAGE);
+                }
+            
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid Employee ID.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            tblLeave.setModel(model);
+            adjustColumns(tblLeave);
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while searching for employee data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_rEnterSearch
 
     // Display current time and date
     public void setTime() {
@@ -1403,6 +1463,37 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             
                 tblEmployee.setModel(employeeModel);
                 adjustColumns(tblEmployee); 
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while fetching payroll data.", "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void refreshAttendanceTable() {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
+            String sql = "SELECT * FROM attendance_record ORDER BY date DESC";
+        
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statement.executeQuery();
+            
+                DefaultTableModel employeeModel = new DefaultTableModel();
+                String[] columns = {"Employee ID", "Date", "Time In", "Time Out", "Status"};
+                employeeModel.setColumnIdentifiers(columns);
+            
+                while (resultSet.next()) {
+                    Object[] row = new Object[columns.length];
+                    row[0] = resultSet.getInt("employeeID");
+                    row[1] = resultSet.getString("date");
+                    row[2] = resultSet.getString("timeIn");
+                    row[3] = resultSet.getString("timeOut");
+                    row[4] = resultSet.getString("statusName");
+                
+                    employeeModel.addRow(row);
+                }
+            
+                tblAttendance.setModel(employeeModel);
+                adjustColumns(tblAttendance); 
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "An error occurred while fetching payroll data.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1544,9 +1635,9 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteEmployee;
     private javax.swing.JButton btnEnter;
     private javax.swing.JButton btnEnter2;
-    private javax.swing.JButton btnEnter3;
     private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnRRefresh;
+    private javax.swing.JButton btnRSearch;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReject;
     private javax.swing.JButton btnSubmit;
@@ -1558,6 +1649,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1581,8 +1673,8 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblTime;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblTitle2;
     private javax.swing.JLabel lblTitle4;
-    private javax.swing.JLabel lblTitle5;
     private javax.swing.JLabel lblTitle6;
     private javax.swing.JLabel lblUser;
     private javax.swing.JTable tblAttendance;
@@ -1592,9 +1684,9 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JTable tblReport;
     private javax.swing.JLabel txtREmployee;
     private javax.swing.JLabel txtREndDate;
+    private javax.swing.JTextField txtRSearch;
     private javax.swing.JLabel txtRStartDate;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSearch2;
-    private javax.swing.JTextField txtSearch3;
     // End of variables declaration//GEN-END:variables
 }

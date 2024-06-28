@@ -4,10 +4,9 @@
  */
 package frames;
 
+import classes.Request;
 import java.awt.Dialog;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,11 +14,39 @@ import javax.swing.JOptionPane;
  * @author Rosh
  */
 public class FrmReject extends javax.swing.JDialog {
+    
+    private int requestID;
+    private String dateRequested;
+    private String fullName;
+    private String leaveType;
+    private String days;
+    private String startDate;
+    private String endDate;
+    private String status;
+    private String reason;
 
-    public FrmReject() {
+    public FrmReject(int requestID, String dateRequested, String fullName, String leaveType, String days, String startDate, String endDate, String status, String reason) {
+        this.requestID = requestID;
+        this.dateRequested = dateRequested;
+        this.fullName = fullName;
+        this.leaveType = leaveType;
+        this.days = days;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.reason = reason;
+        
         initComponents();
         
         setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        txtRequestID.setText(String.valueOf(requestID));
+        txtRequestDate.setText(dateRequested);
+        txtFullName.setText(fullName);
+        txtLeaveType.setText(leaveType);
+        txtDays.setText(days);
+        txtStartDate.setText(startDate);
+        txtEndDate.setText(endDate);
+        txtReason.setText(reason);
     }
 
     /**
@@ -36,24 +63,26 @@ public class FrmReject extends javax.swing.JDialog {
         lblEmployeeID = new javax.swing.JLabel();
         txtRequestDate = new javax.swing.JTextField();
         lblLastName = new javax.swing.JLabel();
-        txtEmployeeID = new javax.swing.JTextField();
+        txtRequestID = new javax.swing.JTextField();
         lblFirstName = new javax.swing.JLabel();
-        txtLastName = new javax.swing.JTextField();
+        txtFullName = new javax.swing.JTextField();
         lblBirthday = new javax.swing.JLabel();
         lblAddress = new javax.swing.JLabel();
         lblPhoneNumber = new javax.swing.JLabel();
-        txtFirstName = new javax.swing.JTextField();
         txtLeaveType = new javax.swing.JTextField();
         txtDays = new javax.swing.JTextField();
         lblAddress1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtStartDate = new javax.swing.JTextField();
         txtEndDate = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtReason = new javax.swing.JTextArea();
         lblTitle = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
-        btnReject = new javax.swing.JButton();
+        btnApprove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 448));
 
         jPanel1.setBackground(new java.awt.Color(255, 245, 239));
 
@@ -68,31 +97,27 @@ public class FrmReject extends javax.swing.JDialog {
         txtRequestDate.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         lblLastName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblLastName.setText("Employee ID");
+        lblLastName.setText("Request ID");
 
-        txtEmployeeID.setEditable(false);
-        txtEmployeeID.setBackground(new java.awt.Color(255, 245, 239));
-        txtEmployeeID.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txtRequestID.setEditable(false);
+        txtRequestID.setBackground(new java.awt.Color(255, 245, 239));
+        txtRequestID.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         lblFirstName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblFirstName.setText("Last Name");
+        lblFirstName.setText("Full Name");
 
-        txtLastName.setEditable(false);
-        txtLastName.setBackground(new java.awt.Color(255, 245, 239));
-        txtLastName.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txtFullName.setEditable(false);
+        txtFullName.setBackground(new java.awt.Color(255, 245, 239));
+        txtFullName.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         lblBirthday.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblBirthday.setText("First Name");
+        lblBirthday.setText("Reason");
 
         lblAddress.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblAddress.setText("Leave Type");
 
         lblPhoneNumber.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblPhoneNumber.setText("Days");
-
-        txtFirstName.setEditable(false);
-        txtFirstName.setBackground(new java.awt.Color(255, 245, 239));
-        txtFirstName.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         txtLeaveType.setEditable(false);
         txtLeaveType.setBackground(new java.awt.Color(255, 245, 239));
@@ -116,38 +141,52 @@ public class FrmReject extends javax.swing.JDialog {
         txtEndDate.setBackground(new java.awt.Color(255, 245, 239));
         txtEndDate.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        txtReason.setEditable(false);
+        txtReason.setBackground(new java.awt.Color(255, 245, 239));
+        txtReason.setColumns(20);
+        txtReason.setRows(5);
+        jScrollPane1.setViewportView(txtReason);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEmployeeID)
-                            .addComponent(lblLastName)
-                            .addComponent(lblFirstName)
-                            .addComponent(lblBirthday)
-                            .addComponent(lblAddress))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                            .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEmployeeID, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRequestDate, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLeaveType)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(lblAddress1)
-                            .addComponent(lblPhoneNumber))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDays, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                            .addComponent(txtStartDate)
-                            .addComponent(txtEndDate))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                            .addComponent(lblPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblAddress1, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtStartDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                                    .addComponent(txtDays))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1)
+                            .addComponent(txtEndDate)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(txtLeaveType, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblEmployeeID)
+                                    .addComponent(lblLastName)
+                                    .addComponent(lblFirstName))
+                                .addGap(27, 27, 27)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtFullName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                                    .addComponent(txtRequestID, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtRequestDate, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addComponent(lblBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(15, 15, 15))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,15 +198,11 @@ public class FrmReject extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLastName)
-                    .addComponent(txtEmployeeID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRequestID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblFirstName)
-                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBirthday)
-                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAddress)
@@ -184,24 +219,28 @@ public class FrmReject extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBirthday)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTitle.setText("Reject Leave Request");
+        lblTitle.setText("Reject Request");
 
         btnCancel.setText("Cancel");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CloseFrame(evt);
+                btnCancelCloseFrame(evt);
             }
         });
 
-        btnReject.setBackground(new java.awt.Color(254, 142, 76));
-        btnReject.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnReject.setForeground(new java.awt.Color(255, 255, 255));
-        btnReject.setText("Reject");
-        btnReject.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnApprove.setBackground(new java.awt.Color(254, 142, 76));
+        btnApprove.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnApprove.setForeground(new java.awt.Color(255, 255, 255));
+        btnApprove.setText("Reject");
+        btnApprove.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 RejectRequest(evt);
             }
@@ -218,7 +257,7 @@ public class FrmReject extends javax.swing.JDialog {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReject)
+                .addComponent(btnApprove)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancel)
                 .addGap(15, 15, 15))
@@ -233,7 +272,7 @@ public class FrmReject extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
-                    .addComponent(btnReject))
+                    .addComponent(btnApprove))
                 .addGap(14, 14, 14))
         );
 
@@ -245,18 +284,29 @@ public class FrmReject extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CloseFrame(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseFrame
+    private void btnCancelCloseFrame(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelCloseFrame
         this.dispose();
-    }//GEN-LAST:event_CloseFrame
+    }//GEN-LAST:event_btnCancelCloseFrame
 
     private void RejectRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RejectRequest
-        
+        try {
+            int rqstID = Integer.parseInt(txtRequestID.getText());
+            Request request = new Request();
+            request.rejectLeave(rqstID);
+
+            JOptionPane.showMessageDialog(this, "Employee Request has been rejected!");
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid request ID. Please check the input.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (HeadlessException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while approving the request: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_RejectRequest
 
     /**
@@ -302,11 +352,12 @@ public class FrmReject extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnReject;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddress1;
     private javax.swing.JLabel lblBirthday;
@@ -316,12 +367,12 @@ public class FrmReject extends javax.swing.JDialog {
     private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtDays;
-    private javax.swing.JTextField txtEmployeeID;
     private javax.swing.JTextField txtEndDate;
-    private javax.swing.JTextField txtFirstName;
-    private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtFullName;
     private javax.swing.JTextField txtLeaveType;
+    private javax.swing.JTextArea txtReason;
     private javax.swing.JTextField txtRequestDate;
+    private javax.swing.JTextField txtRequestID;
     private javax.swing.JTextField txtStartDate;
     // End of variables declaration//GEN-END:variables
 }
