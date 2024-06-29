@@ -4,17 +4,6 @@
  */
 package classes;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import static java.nio.file.Files.lines;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,15 +15,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -99,30 +81,6 @@ public class TimeAttendance {
     }
     
     // Methods
-    //  Fetches employee attendance records from a CSV file and returns them as a DefaultTableModel.
-    // public DefaultTableModel fetchEmployees(String CSVFilename) throws IOException, CsvValidationException {
-    //     DefaultTableModel employees = new DefaultTableModel(new String[]{"Employee ID", "Date", "Time-in", "Time-out"}, 0);
-    //     try(CSVReader reader = new CSVReader(new FileReader(CSVFilename))) {
-    //         String[] header = reader.readNext();
-    //         
-    //         String[] final_header = new String[4];
-    //         final_header[0] = header[0];
-    //         final_header[1] = header[1];
-    //         final_header[2] = header[2];
-    //         final_header[3] = header[3];
-    //         employees = new DefaultTableModel(final_header, 0);
-    //         String[] line; 
-    //         while((line = reader.readNext()) != null) {
-    //             String record[] = new String[4];
-    //                     record[0] = line[0];
-    //                     record[1] = line[1];
-    //                     record[2] = line[2];
-    //                     record[3] = line[3];
-    //             employees.addRow(record);
-    //         }
-    //     }
-    //     return employees;
-    // }
     
     private Date parseDateTime(String dateStr, String timeStr) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");

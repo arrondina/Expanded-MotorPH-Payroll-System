@@ -6,7 +6,6 @@ package frames;
 
 import classes.Employee;
 import classes.Request;
-import classes.EmployeeRecord;
 import classes.Payslip;
 import classes.TimeAttendance;
 import java.sql.Connection;
@@ -49,7 +48,6 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
     private Employee employee;
     private Request request;
     private TimeAttendance time;
-    private EmployeeRecord record;
     
     /**
      * Creates new form FrmAdminHome
@@ -58,7 +56,6 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
         initComponents();
         payslipHeader();
         setTime();
-        record = new EmployeeRecord();
         time = new TimeAttendance();
     }
 

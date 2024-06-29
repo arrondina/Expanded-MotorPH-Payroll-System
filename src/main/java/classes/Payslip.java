@@ -4,9 +4,6 @@
  */
 package classes;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 /**
@@ -317,36 +314,4 @@ public class Payslip {
         // Logic to generate payroll summary
     }
     
-    // public static Payslip loadPayslip(String csvFilename, String username) {
-    //     try (CSVReader reader = new CSVReader(new FileReader(csvFilename))) {
-    //         String[] header = reader.readNext();
-    //         if (header == null) {
-    //             System.out.println("CSV file is empty.");
-    //             return null;
-    //         }
-            
-    //         String[] line;
-    //         while ((line = reader.readNext()) != null) {
-    //             int id = Integer.parseInt(line[0]);
-    //             String employeeUsername = line[2];
-                
-    //             if (username.equals(employeeUsername)) {
-    //                 double monthlyRate = Double.parseDouble(line[13]);
-    //                 double riceSubsidy = Double.parseDouble(line[14]);
-    //                 double phoneAllowance = Double.parseDouble(line[15]);
-                
-    //                 Payslip payslip = new Payslip();
-    //                 payslip.setMonthlyRate(monthlyRate);
-    //                payslip.setRiceSubsidy(riceSubsidy);
-    //                 payslip.setPhoneAllowance(phoneAllowance);
-                    
-                    
-    //                 return payslip;
-    //             }
-    //         }
-    //         System.out.println("No matching username found: " + username);
-    //         return null;
-    //     } catch (IOException | CsvValidationException | NumberFormatException e) {
-    //         return null;
-    //     }
-    } 
+} 

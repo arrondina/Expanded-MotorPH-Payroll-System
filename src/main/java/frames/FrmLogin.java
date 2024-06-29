@@ -5,8 +5,8 @@
 package frames;
 
 import classes.Employee;
-import classes.Payslip;
 import classes.User;
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 /**
@@ -238,7 +238,9 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             // Handle any exceptions that occur during the authentication process
-            JOptionPane.showMessageDialog(this, "An error occurred during login. Please try again later.");
+            JOptionPane.showMessageDialog(this, "A database error occurred during login. Please try again later.");
+        } catch (HeadlessException ex) {
+            JOptionPane.showMessageDialog(this, "An unexpected error occurred during login. Please try again later.");
         }
     }//GEN-LAST:event_Login
 
