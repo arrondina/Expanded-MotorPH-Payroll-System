@@ -411,8 +411,8 @@ public class FrmPayrollStaff extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel6.setText("Employee Payroll");
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Payslip Breakdown");
 
         btnPRefresh.setBackground(new java.awt.Color(254, 142, 76));
         btnPRefresh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -1543,13 +1543,25 @@ public class FrmPayrollStaff extends javax.swing.JFrame {
     
     private void refreshEmployeeTable() {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
-            String sql = "SELECT * FROM employee";
+            String sql = "SELECT " +
+                         "    e.employeeID, " +
+                         "    e.lastName, " +
+                         "    e.firstName, " +
+                         "    MAX(CASE WHEN a.allowanceTypeID = 1101 THEN a.allowanceAmount ELSE 0 END) AS 'Rice Subsidy', " +
+                         "    MAX(CASE WHEN a.allowanceTypeID = 1102 THEN a.allowanceAmount ELSE 0 END) AS 'Phone Allowance', " +
+                         "    MAX(CASE WHEN a.allowanceTypeID = 1103 THEN a.allowanceAmount ELSE 0 END) AS 'Clothing Allowance' " +
+                         "FROM " +
+                         "    employee e " +
+                         "LEFT JOIN " +
+                         "    allowance a ON e.employeeID = a.employeeID " +
+                         "GROUP BY " +
+                         "    e.employeeID, e.lastName, e.firstName";
         
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();
             
                 DefaultTableModel employeeModel = new DefaultTableModel();
-                String[] columns = {"Employee ID", "Last Name", "First Name", "Phone No", "SSS No", "Philhealth No", "Pag-Ibig No", "TIN No"};
+                String[] columns = {"Employee ID", "Last Name", "First Name", "Rice Subsidy", "Phone Allowance", "Clothing Allowance"};
                 employeeModel.setColumnIdentifiers(columns);
             
                 while (resultSet.next()) {
@@ -1557,11 +1569,9 @@ public class FrmPayrollStaff extends javax.swing.JFrame {
                     row[0] = resultSet.getInt("employeeID");
                     row[1] = resultSet.getString("lastName");
                     row[2] = resultSet.getString("firstName");
-                    row[3] = resultSet.getString("phoneNumber");
-                    row[4] = resultSet.getString("sssNumber");
-                    row[5] = resultSet.getString("philhealthNumber");
-                    row[6] = resultSet.getString("pagibigNumber");
-                    row[7] = resultSet.getString("tinNumber");
+                    row[3] = resultSet.getString("Rice Subsidy");
+                    row[4] = resultSet.getString("Phone Allowance");
+                    row[5] = resultSet.getString("Clothing Allowance");
                 
                     employeeModel.addRow(row);
                 }

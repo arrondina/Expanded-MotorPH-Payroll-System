@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,27 +77,28 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         JTabbedPane = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        btnAddStudent = new javax.swing.JButton();
+        btnUpdateEmployee = new javax.swing.JButton();
+        btnDeleteEmployee = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        btnEnter = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmployee = new javax.swing.JTable();
-        txtSearch = new javax.swing.JTextField();
-        lblTitle = new javax.swing.JLabel();
-        btnEnter = new javax.swing.JButton();
-        btnRefresh = new javax.swing.JButton();
-        btnDeleteEmployee = new javax.swing.JButton();
-        btnUpdateEmployee = new javax.swing.JButton();
-        btnAddStudent = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblAttendance = new javax.swing.JTable();
-        txtSearch2 = new javax.swing.JTextField();
+        txtASearch = new javax.swing.JTextField();
         lblTitle4 = new javax.swing.JLabel();
         btnEnter2 = new javax.swing.JButton();
         cbSelectDate = new javax.swing.JComboBox<>();
         lblTitle6 = new javax.swing.JLabel();
         btnARefresh = new javax.swing.JButton();
-        btnAUpdate = new javax.swing.JButton();
-        btnADelete = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jPanel23 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -222,6 +224,127 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 245, 239));
 
+        jPanel7.setBackground(new java.awt.Color(255, 245, 239));
+
+        btnAddStudent.setBackground(new java.awt.Color(254, 142, 76));
+        btnAddStudent.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAddStudent.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddStudent.setText("ADD");
+        btnAddStudent.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
+        btnAddStudent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eAddRecord(evt);
+            }
+        });
+
+        btnUpdateEmployee.setBackground(new java.awt.Color(254, 142, 76));
+        btnUpdateEmployee.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnUpdateEmployee.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdateEmployee.setText("UPDATE");
+        btnUpdateEmployee.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
+        btnUpdateEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eUpdateRecord(evt);
+            }
+        });
+
+        btnDeleteEmployee.setBackground(new java.awt.Color(254, 142, 76));
+        btnDeleteEmployee.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDeleteEmployee.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteEmployee.setText("DELETE");
+        btnDeleteEmployee.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
+        btnDeleteEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eDeleteRecord(evt);
+            }
+        });
+
+        btnRefresh.setBackground(new java.awt.Color(254, 142, 76));
+        btnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefresh.setText("REFRESH");
+        btnRefresh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eRefreshRecord(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAddStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdateEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDeleteEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddStudent)
+                    .addComponent(btnUpdateEmployee)
+                    .addComponent(btnDeleteEmployee)
+                    .addComponent(btnRefresh))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel9.setBackground(new java.awt.Color(255, 245, 239));
+
+        btnEnter.setBackground(new java.awt.Color(254, 142, 76));
+        btnEnter.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEnter.setForeground(new java.awt.Color(255, 255, 255));
+        btnEnter.setText("Search");
+        btnEnter.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 0, true));
+        btnEnter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eEnterSearch(evt);
+            }
+        });
+
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
+        lblTitle.setText("Enter EmployeeID");
+
+        txtSearch.setToolTipText("");
+        txtSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap(105, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(lblTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel5.setText("Employee Details");
+
         tblEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -252,109 +375,37 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             tblEmployee.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        txtSearch.setToolTipText("");
-        txtSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
-
-        lblTitle.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
-        lblTitle.setText("Enter EmployeeID");
-
-        btnEnter.setBackground(new java.awt.Color(254, 142, 76));
-        btnEnter.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEnter.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnter.setText("Search");
-        btnEnter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
-        btnEnter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eEnterSearch(evt);
-            }
-        });
-
-        btnRefresh.setBackground(new java.awt.Color(254, 142, 76));
-        btnRefresh.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
-        btnRefresh.setText("REFRESH");
-        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eRefreshRecord(evt);
-            }
-        });
-
-        btnDeleteEmployee.setBackground(new java.awt.Color(254, 142, 76));
-        btnDeleteEmployee.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDeleteEmployee.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteEmployee.setText("DELETE");
-        btnDeleteEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eDeleteRecord(evt);
-            }
-        });
-
-        btnUpdateEmployee.setBackground(new java.awt.Color(254, 142, 76));
-        btnUpdateEmployee.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnUpdateEmployee.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdateEmployee.setText("UPDATE");
-        btnUpdateEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eUpdateRecord(evt);
-            }
-        });
-
-        btnAddStudent.setBackground(new java.awt.Color(254, 142, 76));
-        btnAddStudent.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnAddStudent.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddStudent.setText("ADD");
-        btnAddStudent.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eAddRecord(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitle)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEnter, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 798, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(btnAddStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnUpdateEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnDeleteEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEnter))
-                .addGap(0, 0, 0)
-                .addComponent(lblTitle)
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(12, 12, 12)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRefresh)
-                    .addComponent(btnDeleteEmployee)
-                    .addComponent(btnUpdateEmployee)
-                    .addComponent(btnAddStudent))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -410,8 +461,8 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             tblAttendance.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        txtSearch2.setToolTipText("");
-        txtSearch2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
+        txtASearch.setToolTipText("");
+        txtASearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
 
         lblTitle4.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
         lblTitle4.setText("Enter EmployeeID");
@@ -420,14 +471,20 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnEnter2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEnter2.setForeground(new java.awt.Color(255, 255, 255));
         btnEnter2.setText("Search");
-        btnEnter2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
+        btnEnter2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
         btnEnter2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 aEnterSearch(evt);
             }
         });
 
-        cbSelectDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "September", "October", "November", "December" }));
+        cbSelectDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "September 2022", "October 2022", "November 2022", "December 2022" }));
+        cbSelectDate.setBorder(null);
+        cbSelectDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aSelectDate(evt);
+            }
+        });
 
         lblTitle6.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
         lblTitle6.setText("Show data for:");
@@ -436,32 +493,10 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnARefresh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnARefresh.setForeground(new java.awt.Color(255, 255, 255));
         btnARefresh.setText("Refresh");
-        btnARefresh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
+        btnARefresh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
         btnARefresh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 aRefreshAttendance(evt);
-            }
-        });
-
-        btnAUpdate.setBackground(new java.awt.Color(254, 142, 76));
-        btnAUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnAUpdate.setText("Update");
-        btnAUpdate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
-        btnAUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                aUpdateAttendance(evt);
-            }
-        });
-
-        btnADelete.setBackground(new java.awt.Color(254, 142, 76));
-        btnADelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnADelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnADelete.setText("Delete");
-        btnADelete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(254, 142, 76), 0));
-        btnADelete.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                aDeleteAttendance(evt);
             }
         });
 
@@ -484,15 +519,11 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
                         .addComponent(lblTitle4)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel22Layout.createSequentialGroup()
-                        .addComponent(txtSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtASearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEnter2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 257, Short.MAX_VALUE)
                         .addComponent(btnARefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnADelete, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23))))
         );
         jPanel22Layout.setVerticalGroup(
@@ -500,18 +531,16 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             .addGroup(jPanel22Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtASearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEnter2)
                     .addComponent(cbSelectDate, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnARefresh)
-                    .addComponent(btnAUpdate)
-                    .addComponent(btnADelete))
+                    .addComponent(btnARefresh))
                 .addGap(2, 2, 2)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitle4)
                     .addComponent(lblTitle6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -583,6 +612,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnApprove.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnApprove.setForeground(new java.awt.Color(255, 255, 255));
         btnApprove.setText("Approve");
+        btnApprove.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
         btnApprove.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 rApproveRequest(evt);
@@ -593,6 +623,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnReject.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnReject.setForeground(new java.awt.Color(255, 255, 255));
         btnReject.setText("Reject");
+        btnReject.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
         btnReject.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 rRejectRequest(evt);
@@ -633,6 +664,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnRRefresh.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRRefresh.setForeground(new java.awt.Color(255, 255, 255));
         btnRRefresh.setText("Refresh");
+        btnRRefresh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
         btnRRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 rRefreshRequest(evt);
@@ -649,6 +681,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnRSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRSearch.setForeground(new java.awt.Color(255, 255, 255));
         btnRSearch.setText("Search");
+        btnRSearch.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
         btnRSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 rEnterSearch(evt);
@@ -685,7 +718,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
                         .addComponent(txtRSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRSearch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(btnApprove, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnReject, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -727,10 +760,13 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         jPanel12.setBackground(new java.awt.Color(255, 245, 239));
 
         cbREmployee.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "All employees" }));
+        cbREmployee.setBorder(null);
 
         cbRStartDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "2022-09-01", "2022-10-01", "2022-11-01", "2022-12-01" }));
+        cbRStartDate.setBorder(null);
 
         cbREndDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "2022-09-30", "2022-10-31", "2022-11-30", "2022-12-31" }));
+        cbREndDate.setBorder(null);
 
         txtREmployee.setText("Employee(s):");
 
@@ -742,7 +778,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnSubmit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("Submit");
-        btnSubmit.setBorder(null);
+        btnSubmit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
         btnSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 monthlyReportGenerate(evt);
@@ -753,7 +789,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         btnPrint.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnPrint.setForeground(new java.awt.Color(255, 255, 255));
         btnPrint.setText("PRINT");
-        btnPrint.setBorder(null);
+        btnPrint.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
         btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 monthlyReportPrint(evt);
@@ -862,7 +898,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
@@ -901,7 +937,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1083,36 +1119,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     }//GEN-LAST:event_loadLeave
 
     private void loadCredits(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadCredits
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
-            String sql = "SELECT employeeID, fullName, sickLeave, vacationLeave, emergencyLeave "
-                       + "FROM leave_balances";
-            
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-                ResultSet resultSet = statement.executeQuery();
-                
-                DefaultTableModel leaveModel = new DefaultTableModel();
-                String[] columns = {"Employee ID", "Full Name", "Sick Leave", "Vacation Leave", "Emergency Leave"};
-                leaveModel.setColumnIdentifiers(columns);
-                
-                while (resultSet.next()) {
-                    Object[] row = new Object[columns.length];
-                    row[0] = resultSet.getInt("employeeID");
-                    row[1] = resultSet.getString("fullName");
-                    row[2] = resultSet.getInt("sickLeave");
-                    row[3] = resultSet.getInt("vacationLeave");
-                    row[4] = resultSet.getInt("emergencyLeave");
-                    
-                    leaveModel.addRow(row);
-                }
-                
-                tblCredit.setModel(leaveModel);
-                adjustColumns(tblCredit);
-                
-            } 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "An error occurred while fetching leave records.", "Error", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        refreshCreditTable(); 
     }//GEN-LAST:event_loadCredits
 
     private void rApproveRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rApproveRequest
@@ -1161,6 +1168,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         
         if (!approve.isVisible()) {
             refreshLeaveTable();
+            refreshCreditTable();
         }
     }//GEN-LAST:event_rApproveRequest
 
@@ -1210,11 +1218,13 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         
         if (!reject.isVisible()) {
             refreshLeaveTable();
+            refreshCreditTable();
         }
     }//GEN-LAST:event_rRejectRequest
 
     private void rRefreshRequest(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rRefreshRequest
         refreshLeaveTable();
+        refreshCreditTable();
     }//GEN-LAST:event_rRefreshRequest
 
     private void loadAttendance(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_loadAttendance
@@ -1329,20 +1339,64 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     }//GEN-LAST:event_monthlyReportPrint
 
     private void aEnterSearch(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aEnterSearch
-        // TODO add your handling code here:
+        String searchQuery = txtASearch.getText().trim();
+        
+        DefaultTableModel model = (DefaultTableModel) tblAttendance.getModel();
+        model.setRowCount(0); 
+        
+        if (searchQuery.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a search term.", "Search Input Required", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        String sql = "SELECT * " +
+                     "FROM attendance_record " +
+                     "WHERE employeeID = ? " +
+                     "ORDER BY date DESC, employeeID ASC";
+        
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron");
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            
+            try {
+                int employeeID = Integer.parseInt(searchQuery);
+                statement.setInt(1, employeeID);
+                
+                ResultSet resultSet = statement.executeQuery();
+                
+                boolean recordFound = false;
+                while (resultSet.next()) {
+                    Object[] row = new Object[5];
+                    row[0] = resultSet.getInt("employeeID");
+                    row[1] = resultSet.getString("date");
+                    row[2] = resultSet.getString("timeIn");
+                    row[3] = resultSet.getString("timeOut");
+                    row[4] = resultSet.getString("statusName");
+                
+                    model.addRow(row);
+                    recordFound = true;
+                }
+                
+                if (!recordFound) {
+                    JOptionPane.showMessageDialog(this, "No matching record found", "Search Result", JOptionPane.INFORMATION_MESSAGE);
+                }
+            
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid Employee ID.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            adjustColumns(tblAttendance);
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while searching for employee data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_aEnterSearch
 
     private void aRefreshAttendance(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aRefreshAttendance
         refreshAttendanceTable();
+        cbSelectDate.setSelectedIndex(0);
+        txtASearch.setText("");
     }//GEN-LAST:event_aRefreshAttendance
-
-    private void aUpdateAttendance(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aUpdateAttendance
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aUpdateAttendance
-
-    private void aDeleteAttendance(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aDeleteAttendance
-        // TODO add your handling code here:
-    }//GEN-LAST:event_aDeleteAttendance
 
     private void rEnterSearch(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rEnterSearch
         String searchQuery = txtRSearch.getText().trim();
@@ -1398,6 +1452,52 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
             Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_rEnterSearch
+
+    private void aSelectDate(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aSelectDate
+        String selectedDateStr = (String) cbSelectDate.getSelectedItem();
+        
+        try {
+            SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
+            Date selectedDate = monthYearFormat.parse(selectedDateStr);
+            
+            SimpleDateFormat sqlDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = sqlDateFormat.format(selectedDate);
+            
+            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
+                String sql = "SELECT * FROM attendance_record WHERE MONTH(date) = MONTH(?) AND YEAR(date) = YEAR(?) ORDER BY date DESC";
+                
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, formattedDate);
+                    statement.setString(2, formattedDate);
+                    ResultSet resultSet = statement.executeQuery();
+                    
+                    DefaultTableModel attendanceModel = new DefaultTableModel();
+                    String[] columns = {"Employee ID", "Date", "Time In", "Time Out", "Status"};
+                    attendanceModel.setColumnIdentifiers(columns);
+                    
+                    while (resultSet.next()) {
+                        Object[] row = new Object[columns.length];
+                        row[0] = resultSet.getInt("employeeID");
+                        row[1] = resultSet.getString("date");
+                        row[2] = resultSet.getString("timeIn");
+                        row[3] = resultSet.getString("timeOut");
+                        row[4] = resultSet.getString("statusName");
+                        
+                        attendanceModel.addRow(row);
+                    }
+                    
+                    tblAttendance.setModel(attendanceModel);
+                    adjustColumns(tblAttendance);
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "An error occurred while fetching attendance records.", "Error", JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Error parsing selected date: " + ex.getMessage(), "Date Parsing Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_aSelectDate
 
     // Display current time and date
     public void setTime() {
@@ -1536,6 +1636,39 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
         }
     }
     
+    private void refreshCreditTable() {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
+            String sql = "SELECT employeeID, fullName, sickLeave, vacationLeave, emergencyLeave "
+                       + "FROM leave_balances";
+            
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                ResultSet resultSet = statement.executeQuery();
+                
+                DefaultTableModel leaveModel = new DefaultTableModel();
+                String[] columns = {"Employee ID", "Full Name", "Sick Leave", "Vacation Leave", "Emergency Leave"};
+                leaveModel.setColumnIdentifiers(columns);
+                
+                while (resultSet.next()) {
+                    Object[] row = new Object[columns.length];
+                    row[0] = resultSet.getInt("employeeID");
+                    row[1] = resultSet.getString("fullName");
+                    row[2] = resultSet.getInt("sickLeave");
+                    row[3] = resultSet.getInt("vacationLeave");
+                    row[4] = resultSet.getInt("emergencyLeave");
+                    
+                    leaveModel.addRow(row);
+                }
+                
+                tblCredit.setModel(leaveModel);
+                adjustColumns(tblCredit);
+                
+            } 
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while fetching leave records.", "Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void adjustColumns(JTable table) {
         TableColumnModel columnModel = table.getColumnModel();
         JTableHeader header = table.getTableHeader();
@@ -1627,9 +1760,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane JTabbedPane;
-    private javax.swing.JButton btnADelete;
     private javax.swing.JButton btnARefresh;
-    private javax.swing.JButton btnAUpdate;
     private javax.swing.JButton btnAddStudent;
     private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnDeleteEmployee;
@@ -1650,6 +1781,7 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1663,7 +1795,9 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
@@ -1682,11 +1816,11 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private javax.swing.JTable tblEmployee;
     private javax.swing.JTable tblLeave;
     private javax.swing.JTable tblReport;
+    private javax.swing.JTextField txtASearch;
     private javax.swing.JLabel txtREmployee;
     private javax.swing.JLabel txtREndDate;
     private javax.swing.JTextField txtRSearch;
     private javax.swing.JLabel txtRStartDate;
     private javax.swing.JTextField txtSearch;
-    private javax.swing.JTextField txtSearch2;
     // End of variables declaration//GEN-END:variables
 }

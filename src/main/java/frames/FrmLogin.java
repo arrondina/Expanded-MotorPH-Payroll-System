@@ -216,7 +216,6 @@ public class FrmLogin extends javax.swing.JFrame {
                     Employee loadedEmployee = Employee.loadDetails(enteredUsername);
                     
                     if (loadedEmployee != null) {
-                        // Payslip loadedPayslip = Payslip.loadPayslip("employeeDetails.csv", enteredUsername);
                         FrmEmployeeHome employeeHome = new FrmEmployeeHome();
                         employeeHome.setUser(enteredUsername);
                         employeeHome.setEmployee(loadedEmployee);   

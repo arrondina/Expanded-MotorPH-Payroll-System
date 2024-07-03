@@ -5,14 +5,22 @@
 package frames;
 
 import java.awt.Dialog;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -58,6 +66,7 @@ public class FrmAddEmployee extends javax.swing.JDialog {
         lblTitle = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
+        btnImport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -181,9 +190,21 @@ public class FrmAddEmployee extends javax.swing.JDialog {
         btnSave.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSave.setForeground(new java.awt.Color(255, 255, 255));
         btnSave.setText("Save");
+        btnSave.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
         btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 SaveEmployee(evt);
+            }
+        });
+
+        btnImport.setBackground(new java.awt.Color(254, 142, 76));
+        btnImport.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnImport.setForeground(new java.awt.Color(255, 255, 255));
+        btnImport.setText("IMPORT");
+        btnImport.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 142, 76), 1, true));
+        btnImport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Import(evt);
             }
         });
 
@@ -194,11 +215,13 @@ public class FrmAddEmployee extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(lblTitle)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnImport, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSave)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancel)
                 .addGap(15, 15, 15))
@@ -207,13 +230,15 @@ public class FrmAddEmployee extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(lblTitle)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTitle)
+                    .addComponent(btnImport))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
-                    .addComponent(btnSave))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
@@ -249,6 +274,9 @@ public class FrmAddEmployee extends javax.swing.JDialog {
         int positionID = getPositionID(selectedPosition);
         int departmentID = getDepartmentID(positionID);
         
+        System.out.println("PositionID: " + positionID);
+        System.out.println("DepartmentID: " + departmentID);
+        
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
             String sql = "INSERT INTO employee (lastName, firstName, birthday, address, phoneNumber, status, positionID, departmentID, immediateSupervisor) " +
                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -266,7 +294,8 @@ public class FrmAddEmployee extends javax.swing.JDialog {
                 
                 int rowsAffected = statement.executeUpdate();
                 if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null, "Employee Record is saved!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Employee Record is saved!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                     clearFields();
                 } else {
                     JOptionPane.showMessageDialog(null, "Failed to save Employee Record!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -277,6 +306,17 @@ public class FrmAddEmployee extends javax.swing.JDialog {
             Logger.getLogger(FrmAddEmployee.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_SaveEmployee
+
+    private void Import(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Import
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileNameExtensionFilter("CSV files", "csv"));
+        int returnValue = fileChooser.showOpenDialog(null);
+    
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            importCSV(selectedFile);
+        }
+    }//GEN-LAST:event_Import
 
     private int getPositionID(String positionName) {
         int positionID = 0;
@@ -325,6 +365,93 @@ public class FrmAddEmployee extends javax.swing.JDialog {
         cbSupervisor.setSelectedItem("-"); 
     }
     
+    private void importCSV(File csvFile) {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            String line;
+            List<String[]> data = new ArrayList<>();
+            
+            // Skip the header row
+            br.readLine();
+        
+            // Read the CSV file line by line
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                data.add(values);
+            }
+        
+            // Validate and insert data
+            validateAndInsertData(data);
+        
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "An error occurred while reading the CSV file: " + ex.getMessage(), "File Error", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void validateAndInsertData(List<String[]> data) {
+        for (int i = 1; i < data.size(); i++) {
+            String[] row = data.get(i);
+            
+            if (row.length < 8) {
+                JOptionPane.showMessageDialog(this, "Invalid data format in row " + (i + 1), "Data Error", JOptionPane.ERROR_MESSAGE);
+                continue;
+            }
+            
+            try {
+                String lastName = row[0].trim();
+                String firstName = row[1].trim();
+                String birthday = row[2].trim(); 
+                String address = row[3].trim();
+                String phoneNumber = row[4].trim();
+                String status = row[5].trim();
+                String positionName = row[6].trim();
+                String supervisor = row[7].trim();
+                
+                int positionID = getPositionID(positionName);
+                int departmentID = getDepartmentID(positionID);
+                
+                System.out.println("PositionID: " + positionID);
+                System.out.println("DepartmentID: " + departmentID);
+                
+                insertEmployee(departmentID, positionID, lastName, firstName, birthday, address, status, supervisor, phoneNumber);
+                
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid number format in row " + (i + 1), "Data Error", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "An error occurred while inserting data into the database: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(FrmHRStaffHome.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    private void insertEmployee(int departmentID, int positionID, String lastName, String firstName, String birthday, String address, String status, String supervisor, String phoneNumber) throws SQLException {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
+            String sql = "INSERT INTO employee (departmentID, positionID, lastName, firstName, birthday, address, status, immediateSupervisor, phoneNumber) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, departmentID);
+                statement.setInt(2, positionID);
+                statement.setString(3, lastName);
+                statement.setString(4, firstName);
+                statement.setDate(5, java.sql.Date.valueOf(birthday));
+                statement.setString(6, address);
+                statement.setString(7, status);
+                statement.setString(8, supervisor);
+                statement.setString(9, phoneNumber);
+                
+                int rowsAffected = statement.executeUpdate();
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(this, "Employee Record is saved!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                    clearFields();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to save Employee Record!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -363,6 +490,7 @@ public class FrmAddEmployee extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnImport;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbPosition;
     private javax.swing.JComboBox<String> cbStatus;

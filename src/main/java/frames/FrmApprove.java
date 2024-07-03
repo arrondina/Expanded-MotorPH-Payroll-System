@@ -300,6 +300,7 @@ public class FrmApprove extends javax.swing.JDialog {
             request.approveLeave(rqstID);
         
             JOptionPane.showMessageDialog(this, "Employee Request has been approved!");
+            this.dispose();
             
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Invalid request ID. Please check the input.", "Error", JOptionPane.ERROR_MESSAGE);
