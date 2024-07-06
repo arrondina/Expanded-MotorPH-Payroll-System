@@ -316,6 +316,9 @@ public class FrmAddEmployee extends javax.swing.JDialog {
             File selectedFile = fileChooser.getSelectedFile();
             importCSV(selectedFile);
         }
+        
+        JOptionPane.showMessageDialog(this, "Employee record has been saved!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
     }//GEN-LAST:event_Import
 
     private int getPositionID(String positionName) {
@@ -375,7 +378,7 @@ public class FrmAddEmployee extends javax.swing.JDialog {
         
             // Read the CSV file line by line
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
+                String[] values = parseCSVLine(line);
                 data.add(values);
             }
         
@@ -389,7 +392,7 @@ public class FrmAddEmployee extends javax.swing.JDialog {
     }
     
     private void validateAndInsertData(List<String[]> data) {
-        for (int i = 1; i < data.size(); i++) {
+        for (int i = 0; i < data.size(); i++) {
             String[] row = data.get(i);
             
             if (row.length < 8) {
@@ -398,6 +401,7 @@ public class FrmAddEmployee extends javax.swing.JDialog {
             }
             
             try {
+                // Extracting data with proper trimming
                 String lastName = row[0].trim();
                 String firstName = row[1].trim();
                 String birthday = row[2].trim(); 
@@ -407,12 +411,14 @@ public class FrmAddEmployee extends javax.swing.JDialog {
                 String positionName = row[6].trim();
                 String supervisor = row[7].trim();
                 
+                // Get the positionID and departmentID based on names
                 int positionID = getPositionID(positionName);
                 int departmentID = getDepartmentID(positionID);
                 
                 System.out.println("PositionID: " + positionID);
                 System.out.println("DepartmentID: " + departmentID);
                 
+                // Insert the employee into the database
                 insertEmployee(departmentID, positionID, lastName, firstName, birthday, address, status, supervisor, phoneNumber);
                 
             } catch (NumberFormatException ex) {
@@ -434,22 +440,53 @@ public class FrmAddEmployee extends javax.swing.JDialog {
                 statement.setInt(2, positionID);
                 statement.setString(3, lastName);
                 statement.setString(4, firstName);
-                statement.setDate(5, java.sql.Date.valueOf(birthday));
+                
+                // Parse and set the birthday
+                try {
+                    statement.setDate(5, java.sql.Date.valueOf(birthday));
+                } catch (IllegalArgumentException e) {
+                    JOptionPane.showMessageDialog(null, "Invalid date format for birthday. Please use yyyy-MM-dd.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
                 statement.setString(6, address);
                 statement.setString(7, status);
                 statement.setString(8, supervisor);
                 statement.setString(9, phoneNumber);
                 
-                int rowsAffected = statement.executeUpdate();
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(this, "Employee Record is saved!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                    clearFields();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Failed to save Employee Record!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
+                statement.executeUpdate();
+                clearFields();
+            } 
+        }
+    }
+    
+    // Function to parse CSV line with proper handling of commas within quotes
+    private String[] parseCSVLine(String line) {
+        List<String> tokens = new ArrayList<>();
+        boolean inQuotes = false;
+        StringBuilder sb = new StringBuilder();
+        
+        for (char c : line.toCharArray()) {
+            switch (c) {
+                case '"':
+                    inQuotes = !inQuotes;
+                    break;
+                case ',':
+                    if (inQuotes) {
+                        sb.append(c);
+                    } else {
+                        tokens.add(sb.toString().trim());
+                        sb.setLength(0); // Reset the builder
+                    }
+                    break;
+                default:
+                    sb.append(c);
+                    break;
             }
         }
+        tokens.add(sb.toString().trim()); // Add the last token
+        
+        return tokens.toArray(String[]::new);
     }
     
     /**
