@@ -1551,17 +1551,17 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
     private void eClockIn(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eClockIn
         int employeeID = employee.getEmployeeID();
         
-        if (time.isClockedIn(employeeID)) {
-            JOptionPane.showMessageDialog(this, "You are already clocked in.");
-        } else {
-            try {
+         if (time.isClockedIn(employeeID)) {
+             JOptionPane.showMessageDialog(this, "You are already clocked in.");
+         } else {
+             try {
                 time.clockIn(employeeID);
                 loadAttendanceTable(employeeID);
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmEmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            JOptionPane.showMessageDialog(this, "Clocked in successfully.");
-        }
+             } catch (SQLException ex) {
+                 Logger.getLogger(FrmEmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
+             } 
+             JOptionPane.showMessageDialog(this, "Clocked in successfully.");
+         }
     }//GEN-LAST:event_eClockIn
 
     private void eClockOut(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eClockOut
@@ -1846,7 +1846,6 @@ public class FrmEmployeeHome extends javax.swing.JFrame {
                         // Update the UI
                         setEmployee(this.employee);
                         
-                        JOptionPane.showMessageDialog(this, "Employee details refreshed successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(this, "Employee not found in the database.", "Error", JOptionPane.ERROR_MESSAGE);
                     }

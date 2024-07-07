@@ -1604,7 +1604,8 @@ public class FrmHRStaffHome extends javax.swing.JFrame {
     private void refreshLeaveTable() {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
             String sql = "SELECT `Request ID`, `Date Requested`, `Full Name`, `Leave Type`, `Days`, `Start Date`, `End Date`, `Status` "
-                       + "FROM leave_record";
+                       + "FROM leave_record "
+                       + "ORDER BY CASE WHEN `Status` = 'Pending' THEN 0 ELSE 1 END, `Date Requested` DESC";
         
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = statement.executeQuery();

@@ -98,7 +98,7 @@ public class TimeAttendance {
             
             String sql = "SELECT COUNT(*) "
                     + "FROM time_attendance "
-                    + "WHERE employeeID = ? AND date = ?";
+                    + "WHERE employeeID = ? AND DATE(timeIn) = ?";
             
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, employeeID);
@@ -126,12 +126,22 @@ public class TimeAttendance {
     
     private boolean recordClockIn(int employeeID, String date, String timeIn) throws SQLException {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/aoop_db", "root", "arron")) {
-            String sql = "INSERT INTO time_attendance (employeeID, timeIn) VALUES (?, ?) ON DUPLICATE KEY UPDATE timeIn = ?";
+            // Check if there is already a clock-in record
+            String checkSql = "SELECT COUNT(*) FROM time_attendance WHERE employeeID = ? AND DATE(timeIn) = ?";
+            try (PreparedStatement checkStatement = connection.prepareStatement(checkSql)) {
+                checkStatement.setInt(1, employeeID);
+                checkStatement.setString(2, date);
+                ResultSet resultSet = checkStatement.executeQuery();
+                if (resultSet.next() && resultSet.getInt(1) > 0) {
+                    // Already clocked in today, do not insert again
+                    return false;
+                }
+            }
             
+            String sql = "INSERT INTO time_attendance (employeeID, timeIn) VALUES (?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setInt(1, employeeID);
                 statement.setString(2, date + " " + timeIn); // Combine date and time for datetime column
-                statement.setString(3, date + " " + timeIn);
                 
                 int rowsAffected = statement.executeUpdate();
                 return rowsAffected > 0; // Return true if a row was inserted/updated

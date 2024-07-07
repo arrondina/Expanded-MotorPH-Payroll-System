@@ -1774,7 +1774,6 @@
                                       <Component id="jPanel34" min="-2" pref="150" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                                       <Component id="jPanel31" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   </Group>
@@ -1807,10 +1806,8 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                       <Component id="btnPayslip" pref="160" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="btnClear" pref="160" max="32767" attributes="0"/>
-                                          <Component id="btnPrint" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="btnClear" pref="160" max="32767" attributes="0"/>
+                                      <Component id="btnPrint" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
